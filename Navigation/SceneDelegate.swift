@@ -23,16 +23,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let profileViewController = ProfileViewController()
         profileViewController.title = "Profile"
-        profileViewController.view.backgroundColor = .systemMint
         
         
-        let feedNavigationController = UINavigationController(rootViewController: FeedViewController())
-        let profileNavigationController = UINavigationController(rootViewController: ProfileViewController())
+        let _ = UINavigationController(rootViewController: FeedViewController())
+        let _ = UINavigationController(rootViewController: ProfileViewController())
         
         let tabBarController = UITabBarController()
+                
         
-        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(named: "Feed"), tag: 0)
-        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "Profile"), tag: 1)
+        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "person"), tag: 0)
+        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "house"), tag: 1)
         
         
         let controllers = [feedViewController, profileViewController]

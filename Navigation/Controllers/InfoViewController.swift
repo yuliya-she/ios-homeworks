@@ -9,19 +9,22 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
-    private lazy var actionButton: UIButton = {
+    // MARK: - Subviews
+    
+    private lazy var backButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Back", for: .normal)
-        
+        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         return button
     }()
     
-    lazy var goAlert: UIButton = {
-        let button2 = UIButton()
-        button2.translatesAutoresizingMaskIntoConstraints = false
-        button2.setTitle("goAlert", for: .normal)
-        return button2
+    private lazy var goAlert: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("goAlert", for: .normal)
+        button.addTarget(self, action: #selector(addAlert(_:)), for: .touchUpInside)
+        return button
     }()
     
     let action = UIAlertAction(title: "OK", style: .default) { (action: UIAlertAction) in
@@ -32,28 +35,47 @@ class InfoViewController: UIViewController {
         print("Cancel")
     }
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .red
-        
-        view.addSubview(actionButton)
+        self.view.backgroundColor = .systemBrown
+        self.setupSubviews()
+    }
+    
+    // MARK: - Actions
+    
+    @objc func buttonPressed(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
+    
+    @objc func addAlert(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Title", message: "Message", preferredStyle: .alert)
+        alertController.addAction(action)
+        alertController.addAction(action2)
+        present(alertController, animated: true)
+    }
+    
+    //MARK: - Constraints
+    
+    private func setupSubviews () {
+        let safeAreaLayoutGuide = view.safeAreaLayoutGuide
+        view.addSubview(backButton)
         view.addSubview(goAlert)
         
-        let safeAreaLayoutGuide = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            actionButton.leadingAnchor.constraint(
+            backButton.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
                 constant: 20.0
             ),
-            actionButton.trailingAnchor.constraint(
+            backButton.trailingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.trailingAnchor,
                 constant: -20.0
             ),
-            actionButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-            actionButton.heightAnchor.constraint(equalToConstant: 44.0)
-        ])
-        
-        NSLayoutConstraint.activate([
+            backButton.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
+            backButton.heightAnchor.constraint(equalToConstant: 44.0),
+       
+            
             goAlert.leadingAnchor.constraint(
                 equalTo: safeAreaLayoutGuide.leadingAnchor,
                 constant: 20.0
@@ -66,23 +88,5 @@ class InfoViewController: UIViewController {
                                              constant: 30.0),
             goAlert.heightAnchor.constraint(equalToConstant: 44.0)
         ])
-        
-        
-        actionButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-        goAlert.addTarget(self, action: #selector(addAlert(_:)), for: .touchUpInside)
-        
-    }
-    
-    @objc func buttonPressed(_ sender: UIButton) {
-        dismiss(animated: true)
-    }
-    
-    @objc func addAlert(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Title", message: "Message", preferredStyle: .alert)
-        
-        alertController.addAction(action)
-        alertController.addAction(action2)
-        
-        present(alertController, animated: true)
     }
 }
