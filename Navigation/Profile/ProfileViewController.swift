@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
     
     //MARK: - Constraints
     
-    func setupUI() {
+    private func setupUI() {
         view.addSubview(profileHeaderView)
         
         NSLayoutConstraint.activate([

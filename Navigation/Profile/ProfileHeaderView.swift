@@ -11,7 +11,7 @@ final class ProfileHeaderView: UIView {
     
     // MARK: - Subviews
     
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "Piones")
         view.layer.borderWidth = 3
@@ -22,7 +22,7 @@ final class ProfileHeaderView: UIView {
         return view
     }()
     
-    private let name: UILabel = {
+    private lazy var name: UILabel = {
         let name = UILabel()
         name.text = "Flowers"
         name.font = UIFont.boldSystemFont(ofSize: 18)
@@ -32,7 +32,7 @@ final class ProfileHeaderView: UIView {
         return name
     }()
     
-    private let status: UILabel = {
+    private lazy var status: UILabel = {
         let status = UILabel()
         status.text = "Waiting for somebody..."
         status.font = UIFont.systemFont(ofSize: 14)
@@ -57,7 +57,7 @@ final class ProfileHeaderView: UIView {
         return button
     }()
     
-    private let textField: UITextField = {
+    private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 15)
         textField.textColor = UIColor.black
@@ -65,7 +65,7 @@ final class ProfileHeaderView: UIView {
         textField.layer.cornerRadius = 12
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
-        textField.addTarget(ProfileHeaderView.self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
+        textField.addTarget(self, action: #selector(statusTextChanged(_:)), for: .editingChanged)
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -99,7 +99,7 @@ final class ProfileHeaderView: UIView {
     
     //MARK: - Constraints
     
-    func setupUI() {
+    private func setupUI() {
         backgroundColor = .lightGray
         addSubview(imageView)
         addSubview(name)
@@ -111,29 +111,21 @@ final class ProfileHeaderView: UIView {
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             imageView.heightAnchor.constraint(equalToConstant: 120),
-            imageView.widthAnchor.constraint(equalToConstant: 120)
-        ])
-        
-        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: 120),
+       
             name.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 20),
             name.topAnchor.constraint(equalTo: topAnchor, constant: 27),
             name.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-        ])
-        
-        NSLayoutConstraint.activate([
+       
             status.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 20),
             status.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-            status.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -18)
-        ])
-        
-        NSLayoutConstraint.activate([
+            status.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -18),
+       
             button.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             button.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             button.topAnchor.constraint(equalTo: status.bottomAnchor, constant: 74),
-            button.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        NSLayoutConstraint.activate([
+            button.heightAnchor.constraint(equalToConstant: 50),
+   
             textField.heightAnchor.constraint(equalToConstant: 40),
             textField.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 20),
             textField.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),

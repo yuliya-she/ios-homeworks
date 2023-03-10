@@ -27,11 +27,11 @@ class InfoViewController: UIViewController {
         return button
     }()
     
-    let action = UIAlertAction(title: "OK", style: .default) { (action: UIAlertAction) in
+    private lazy var action = UIAlertAction(title: "OK", style: .default) { (action: UIAlertAction) in
         print("OK")
     }
     
-    let action2 = UIAlertAction(title: "Cancel", style: .cancel) { (action: UIAlertAction) in
+    private lazy var action2 = UIAlertAction(title: "Cancel", style: .cancel) { (action: UIAlertAction) in
         print("Cancel")
     }
     
