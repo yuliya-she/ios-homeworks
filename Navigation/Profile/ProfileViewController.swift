@@ -9,18 +9,26 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    // MARK: - Subviews
+    
     let profileHeaderView: ProfileHeaderView = {
         let profileHeaderView = ProfileHeaderView()
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         return profileHeaderView
     }()
     
-    // MARK: - Lifecycle
+    private lazy var button: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 12
+        button.setTitle("Change title", for: .normal)
+        button.setTitleColor(.lightGray, for: .normal)
+        button.addTarget(self, action: #selector(changeTitle), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
-    override func viewWillLayoutSubviews () {
-        self.view.addSubview(self.profileHeaderView)
-        profileHeaderView.frame = view.bounds
-    }
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,16 +36,27 @@ class ProfileViewController: UIViewController {
         setupUI()
     }
     
+    // MARK: - Actions
+    
+    @objc func changeTitle() {
+        print("Change title")
+     }
+    
     //MARK: - Constraints
     
     private func setupUI() {
         view.addSubview(profileHeaderView)
+        view.addSubview(button)
         
         NSLayoutConstraint.activate([
             profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            profileHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             profileHeaderView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            profileHeaderView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            profileHeaderView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
+            
+            button.rightAnchor.constraint(equalTo: view.rightAnchor),
+            button.leftAnchor.constraint(equalTo: view.leftAnchor),
+            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     

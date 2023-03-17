@@ -11,7 +11,7 @@ final class ProfileHeaderView: UIView {
     
     // MARK: - Subviews
     
-    private lazy var imageView: UIImageView = {
+    private lazy var avatarImageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "Piones")
         view.layer.borderWidth = 3
@@ -22,7 +22,7 @@ final class ProfileHeaderView: UIView {
         return view
     }()
     
-    private lazy var name: UILabel = {
+    private lazy var fullNameLabel: UILabel = {
         let name = UILabel()
         name.text = "Flowers"
         name.font = UIFont.boldSystemFont(ofSize: 18)
@@ -32,7 +32,7 @@ final class ProfileHeaderView: UIView {
         return name
     }()
     
-    private lazy var status: UILabel = {
+    private lazy var statusLabel: UILabel = {
         let status = UILabel()
         status.text = "Waiting for somebody..."
         status.font = UIFont.systemFont(ofSize: 14)
@@ -42,7 +42,7 @@ final class ProfileHeaderView: UIView {
         return status
     }()
     
-    private lazy var button: UIButton = {
+    private lazy var setStatusButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blue
         button.layer.cornerRadius = 14
@@ -57,7 +57,7 @@ final class ProfileHeaderView: UIView {
         return button
     }()
     
-    private lazy var textField: UITextField = {
+    private lazy var statusTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 15)
         textField.textColor = UIColor.black
@@ -71,7 +71,6 @@ final class ProfileHeaderView: UIView {
     }()
     
     //MARK: - Init
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -85,52 +84,51 @@ final class ProfileHeaderView: UIView {
     
     private var statusText: String? = String()
     
+    @objc func statusTextChanged(_ textField: UITextField) {
+        statusText = textField.text
+    }
+    
     @objc func buttonPressed() {
         if statusText != nil {
-            status.text = statusText
+            statusLabel.text = statusText!
         }
     }
     
-    @objc func statusTextChanged(_ textField: UITextField) {
-        if textField.text != nil {
-            statusText = textField.text!
-        }
-    }
     
     //MARK: - Constraints
     
     private func setupUI() {
         backgroundColor = .lightGray
-        addSubview(imageView)
-        addSubview(name)
-        addSubview(status)
-        addSubview(button)
-        addSubview(textField)
+        addSubview(avatarImageView)
+        addSubview(fullNameLabel)
+        addSubview(statusLabel)
+        addSubview(setStatusButton)
+        addSubview(statusTextField)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            imageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            imageView.heightAnchor.constraint(equalToConstant: 120),
-            imageView.widthAnchor.constraint(equalToConstant: 120),
-       
-            name.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 20),
-            name.topAnchor.constraint(equalTo: topAnchor, constant: 27),
-            name.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-       
-            status.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 20),
-            status.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-            status.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -18),
-       
-            button.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            button.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-            button.topAnchor.constraint(equalTo: status.bottomAnchor, constant: 74),
-            button.heightAnchor.constraint(equalToConstant: 50),
-   
-            textField.heightAnchor.constraint(equalToConstant: 40),
-            textField.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 20),
-            textField.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-            textField.topAnchor.constraint(equalTo: status.bottomAnchor, constant: 15),
-            textField.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -20)
+            avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            avatarImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 120),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 120),
+            
+            fullNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 20),
+            fullNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            fullNameLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            
+            statusLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 20),
+            statusLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            statusLabel.bottomAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 30),
+            
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
+            statusTextField.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 20),
+            statusTextField.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 15),
+            statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -20),
+            
+            setStatusButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            setStatusButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
         ])
     }
 }

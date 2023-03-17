@@ -8,32 +8,60 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-
+    
     // MARK: - Subviews
     
     var post = Post(title: "My post")
     
-    private lazy var button: UIButton = {
+    private lazy var button1: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blue
         button.layer.cornerRadius = 12
-        button.setTitle("Go to post", for: .normal)
-        button.setTitleColor(.lightGray, for: .normal)
+        button.setTitle("Button1", for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    private lazy var button2: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .yellow
+        button.layer.cornerRadius = 12
+        button.setTitle("Button2", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var stackView: UIStackView = { [unowned self] in
+        let stackView = UIStackView()
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.clipsToBounds = true
+        
+        stackView.axis = .vertical
+        stackView.spacing = 10.0
+        stackView.alignment = .center
+        
+        stackView.addArrangedSubview(self.button1)
+        stackView.addArrangedSubview(self.button2)
+        
+        return stackView
     }()
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupSubviews()
+        view.addSubview(stackView)
+        setupConstraints()
     }
     
     // MARK: - Actions
-       
-   @objc func buttonAction() {
+    
+    @objc func buttonAction() {
         let postViewController = PostViewController()
         self.navigationController?.pushViewController(postViewController, animated: true)
         postViewController.titlePost = post.title
@@ -41,14 +69,15 @@ class FeedViewController: UIViewController {
     
     //MARK: - Constraints
     
-   private func setupSubviews () {
-       self.view.addSubview(self.button)
-       let _ = view.safeAreaLayoutGuide
+    private func setupConstraints() {
+        let safeAreaGuide = view.safeAreaLayoutGuide
+        
         NSLayoutConstraint.activate([
-            self.button.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -400),
-            self.button.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            self.button.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            self.button.heightAnchor.constraint(equalToConstant: 50)
+            stackView.leadingAnchor.constraint(equalTo: safeAreaGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor),
+            stackView.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: safeAreaGuide.centerYAnchor)
         ])
     }
 }
+
