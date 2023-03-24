@@ -23,7 +23,6 @@ class ProfileViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.setTitle("Change title", for: .normal)
         button.setTitleColor(.lightGray, for: .normal)
-        button.addTarget(self, action: #selector(changeTitle), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -35,12 +34,6 @@ class ProfileViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         setupUI()
     }
-    
-    // MARK: - Actions
-    
-    @objc func changeTitle() {
-        print("Change title")
-     }
     
     //MARK: - Constraints
     
