@@ -9,12 +9,16 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
+    // MARK: - Window
+    
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: scene)
+        
+    // MARK: - ViewControllers
         
         let feedViewController = FeedViewController()
         feedViewController.title = "Feed"
@@ -24,18 +28,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let profileViewController = ProfileViewController()
         profileViewController.title = "Profile"
         
+        let logInViewController = LogInViewController()
+        logInViewController.view.backgroundColor = .systemBackground
         
-        let feedNavigationController = UINavigationController(rootViewController: FeedViewController())
-        let profileNavigationController = UINavigationController(rootViewController: ProfileViewController())
+    // MARK: - NavigationControllers
+        
+        let _ = UINavigationController(rootViewController: feedViewController)
+        let _ = UINavigationController(rootViewController: profileViewController)
+        let _ = UINavigationController(rootViewController: logInViewController)
+        
+    // MARK: - TabBarController
         
         let tabBarController = UITabBarController()
+        tabBarController.tabBar.backgroundColor = .systemGray6
+        tabBarController.tabBar.layer.borderWidth = 1
+        tabBarController.tabBar.layer.borderColor = UIColor.lightGray.cgColor
                 
+        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "house"), tag: 0)
+        logInViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
         
-        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "person"), tag: 0)
-        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "house"), tag: 1)
         
-        
-        let controllers = [feedViewController, profileViewController]
+        let controllers = [feedViewController, logInViewController]
         tabBarController.viewControllers = controllers.map {
             UINavigationController(rootViewController: $0 )
         }
@@ -63,4 +76,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {
     }
 }
+
 
