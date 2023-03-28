@@ -37,7 +37,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.backgroundColor = .red
+        scrollView.backgroundColor = .white
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -94,6 +94,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         textField.textColor = .black
         textField.autocapitalizationType = .none
         textField.autocorrectionType = UITextAutocorrectionType.no
+        textField.isSecureTextEntry = true
         
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
@@ -152,9 +153,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
     
-    @objc func willShowKeyboard(_ notification: NSNotification) {
-        let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height
-        scrollView.contentInset.bottom += keyboardHeight ?? 0.0
+    @objc func willShowKeyBoard(_ notification: NSNotification) {
+        let keyboardHeight = (notification.userInfo? [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
+        guard scrollView.contentInset.bottom < keyboardHeight
+        else { return }
+        scrollView.contentInset.bottom += keyboardHeight
+        scrollView.scrollRectToVisible(logInButton.frame, animated: true)
     }
     
     @objc func willHideKeyboard(_ notification: NSNotification) {
@@ -186,7 +190,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         notificationCenter.addObserver(
             self,
-            selector: #selector(self.willShowKeyboard(_:)),
+            selector: #selector(self.willShowKeyBoard(_:)),
             name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
@@ -234,7 +238,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             logInButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
             logInButton.heightAnchor.constraint(equalToConstant: 50.0),
-      
+            
             
             vK.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
             vK.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -243,28 +247,28 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         ])
     }
 }
+
+extension LogInViewController {
     
-    extension LogInViewController {
+    func textFieldShouldReturn(
+        _ textField: UITextField
+    ) -> Bool {
+        emailOrPhone.resignFirstResponder()
         
-        func textFieldShouldReturn(
-            _ textField: UITextField
-        ) -> Bool {
-            emailOrPhone.resignFirstResponder()
-            
-            return true
-        }
+        return true
     }
-    
+}
 
 
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+
+/*
+ // MARK: - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ // Get the new view controller using segue.destination.
+ // Pass the selected object to the new view controller.
+ }
+ */
+
 
