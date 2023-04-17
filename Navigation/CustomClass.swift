@@ -1,9 +1,3 @@
-//
-//  CustomClass.swift
-//  Navigation
-//
-//  Created by мас on 27.03.23.
-//
 
 import Foundation
 import UIKit
@@ -18,7 +12,7 @@ class CustomButton: UIButton {
             }
         }
     }
-    
+
     override var isSelected: Bool {
         didSet {
             if (isSelected) {
@@ -29,3 +23,6 @@ class CustomButton: UIButton {
         }
     }
 }
+
+
+

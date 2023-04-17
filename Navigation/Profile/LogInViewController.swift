@@ -1,34 +1,7 @@
-//
-//  LogInViewController.swift
-//  Navigation
-//
-//  Created by мас on 27.03.23.
-//
 
 import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
-    
-    // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-        addSubViews()
-        setupConstraints()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
-        setupKeyboardObservers()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isHidden = false
-        removeKeyboardObservers()
-    }
     
     // MARK: - Subviews
     
@@ -151,6 +124,28 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return view
     }()
     
+    // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = false
+        setupView()
+        addSubViews()
+        setupConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        setupKeyboardObservers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeKeyboardObservers()
+    }
+    
+    
     // MARK: - Actions
     
     @objc func willShowKeyBoard(_ notification: NSNotification) {
@@ -260,15 +255,5 @@ extension LogInViewController {
 }
 
 
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destination.
- // Pass the selected object to the new view controller.
- }
- */
 
 
