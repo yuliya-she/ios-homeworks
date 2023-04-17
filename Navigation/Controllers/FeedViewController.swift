@@ -1,9 +1,3 @@
-//
-//  FeedViewController.swift
-//  Navigation
-//
-//  Created by мас on 20.02.23.
-//
 
 import UIKit
 
@@ -11,7 +5,7 @@ class FeedViewController: UIViewController {
     
     // MARK: - Subviews
     
-    var post = Post(title: "My post")
+    var post = Post.title
     
     private lazy var button1: UIButton = {
         let button = UIButton()
@@ -64,7 +58,7 @@ class FeedViewController: UIViewController {
     @objc func buttonAction() {
         let postViewController = PostViewController()
         self.navigationController?.pushViewController(postViewController, animated: true)
-        postViewController.titlePost = post.title
+        postViewController.titlePost = post
     }
     
     //MARK: - Constraints

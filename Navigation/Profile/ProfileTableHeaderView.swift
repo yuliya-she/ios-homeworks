@@ -1,10 +1,3 @@
-//
-//  ProfileHeaderView.swift
-//  Navigation
-//
-//  Created by мас on 01.03.23.
-//
-
 import UIKit
 
 final class ProfileHeaderView: UIView {
@@ -13,7 +6,7 @@ final class ProfileHeaderView: UIView {
     
     private lazy var avatarImageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "Piones")
+        view.image = UIImage(named: "Peonies")
         view.layer.borderWidth = 3
         view.layer.cornerRadius = 60
         view.clipsToBounds = true
